@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" onclick="showAddForm()">Add</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Disabled</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-name">
+                            <button class="btn btn-outline-success" onclick="search()">Search</button>
+                        </div>
+
+                        </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <h4>List class</h4>
+            <table class="table">
+                <tbody id="listClass">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-9">
+            <h3>List Student</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Class_id</th>
+                </tr>
+                </thead>
+                <tbody id="list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal Add -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addForm">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control">
+                        <label>Score</label>
+                        <input type="number" name="score" class="form-control">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control">
+                        <label>ClassId</label>
+                        <select id="classId" name="classId" class="form-control">
+
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="save()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal edit -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Edit Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <label>Name</label>
+                        <input type="hidden" id="id" >
+                        <input type="text" name="name" class="form-control" id="name">
+                        <label>Score</label>
+                        <input type="number" name="score" class="form-control" id="score">
+                        <label>Age</label>
+                        <input type="number" name="age" class="form-control" id="age">
+                        <label>ClassId</label>
+                        <select id="classIdEdit" name="classId" class="form-control"></select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="update()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        let tbody=document.getElementById('list');
+        let listClass=document.getElementById('listClass');
+        let searchName =document.getElementById('search-name');
+        let addForm =document.getElementById('addForm');
+        let editForm =document.getElementById('editForm');
+        let classId =document.getElementById('classId');
+        let classIdEdit =document.getElementById('classIdEdit');
+        loadData();
+        loadDataClass();
+        function loadDataClass(){
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/classes",
+                success: function(list){
+                    loadDataClassTable(list);
+                }
+            })
+        }
+
+        function loadDataClassTable(list){
+            let str=''
+            for(let i=0;i<list.length;i++){
+                str+=`<tr>
+                        <button scope="col" id="${list[i].id}" onclick="studentByClass(${list[i].id})">${list[i].name}</button>
+                </tr>`
+                listClass.innerHTML=str;
+            }
+        }
+
+        function studentByClass(id){
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/students/clazz?id="+id,
+                success: function(list){
+                    loadDataTable(list);
+                }
+            })
+        }
+
+        function loadData(){
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/students",
+                success: function(list){
+                    loadDataTable(list);
+                }
+            })
+        }
+
+        function loadDataTable(list){
+            let str=''
+            for(let i=0;i<list.length;i++){
+                str+=`<tr>
+                        <td scope="col">${list[i].id}</td>
+                        <td scope="col">${list[i].name}</td>
+                        <td scope="col">${list[i].score}</td>
+                        <td scope="col">${list[i].age}</td>
+                        <td scope="col">${list[i].clazz.id}</td>
+                        <td><button class="btn btn-primary" onclick="showEditForm(${list[i].id})">Edit</button></td>
+                </tr>`
+                tbody.innerHTML=str;
+            }
+        }
+
+        function search(){
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/students/search-by-name?name="+searchName.value,
+                success: function(list){
+                    loadDataTable(list.content);
+                }
+            })
+        }
+
+        function showAddForm(){
+            $('#exampleModal').modal('show');
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/classes",
+                success: function(list){
+                    let str="";
+                    for(let i=0;i<list.length;i++){
+                        str+=`<option value="${list[i].id}">${list[i].name}</option>`
+                    }
+                    classId.innerHTML=str;
+                }
+            })
+        }
+
+        function save(){
+            let formData = new FormData(addForm);
+            let student={
+                name:formData.get('name'),
+                score:formData.get('score'),
+                age:formData.get('age'),
+                clazz:{
+                    id:formData.get('classId'),
+                }
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                type:"POST",
+                url:"http://localhost:8081/api/students",
+                data: JSON.stringify(student),
+                success: function(){
+                    loadData();
+                    $('#exampleModal').modal('hide');
+                    addForm.reset();
+                },
+                error: function (error){
+                    console.log(error);
+                }
+            })
+        }
+
+        function showEditForm(id){
+            $('#exampleModal1').modal('show');
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/students/"+id,
+                success: function(data){
+                    console.log(data);
+                    document.getElementById('id').value=data.id;
+                    document.getElementById('name').value=data.name;
+                    document.getElementById('score').value=data.score;
+                    document.getElementById('age').value=data.age;
+                    document.getElementById('classIdEdit').value=data.clazz.id;
+                }
+            })
+            $.ajax({
+                type:"GET",
+                url:"http://localhost:8081/api/classes",
+                success: function(list){
+                    let str="";
+                    for(let i=0;i<list.length;i++){
+                        str+=`<option value="${list[i].id}">${list[i].name}</option>`
+                    }
+                    classIdEdit.innerHTML=str;
+                }
+            })
+        }
+
+        function update(){
+            let id= document.getElementById('id').value;
+            let formData = new FormData(editForm);
+            let student={
+                name:formData.get('name'),
+                score:formData.get('score'),
+                age:formData.get('age'),
+                clazz:{
+                    id:formData.get('classId'),
+                }
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                type:"PUT",
+                url:"http://localhost:8081/api/students/"+id,
+                data: JSON.stringify(student),
+                success: function(){
+                    loadData();
+                    $('#exampleModal1').modal('hide');
+                },
+                error: function (error){
+                    console.log(error);
+                }
+            })
+        }
+
+    </script>
+
+
+</body>
+
+</html>
